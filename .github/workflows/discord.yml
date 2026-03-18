@@ -1,0 +1,15 @@
+name: Discord Notification
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Discord notification
+        run: |
+          curl -H "Content-Type: application/json" \
+          -d "{\"embeds\":[{\"title\":\"📦 Nouvelle MAJ Base-V1\",\"description\":\"**Commit :** ${{ github.event.head_commit.message }}\n**Par :** ${{ github.actor }}\",\"color\":3066993}]}" \
+          "${{ secrets.DISCORD_WEBHOOK }}"
